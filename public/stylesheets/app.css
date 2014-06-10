@@ -22,6 +22,7 @@ a:visited {
 .top-bar-section {
   display: inline-block;
   float: right;
+  padding-right: 5px;
 }
 
 .top-bar-section li {
@@ -38,3 +39,10 @@ a:visited {
   padding: 1em;
   background-color: #3B9089;
 }
+
+.meet_up_table th, td{
+  padding-right: 20px;
+  padding-top: 5px;
+}
+
+
