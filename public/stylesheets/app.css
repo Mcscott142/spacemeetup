@@ -45,4 +45,15 @@ a:visited {
   padding-top: 5px;
 }
 
+#form input{
+color: black;
+width: 150px;
+
+}
+
+#form label{
+  width: 150px;
+
+}
+
 

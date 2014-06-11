@@ -2,6 +2,7 @@ require 'sinatra'
 require 'sinatra/activerecord'
 require 'sinatra/flash'
 require 'omniauth-github'
+require 'pry'
 
 require_relative 'config/application'
 
@@ -30,27 +31,69 @@ def authenticate!
 end
 
 get '/' do
-  @meetups = Meetup.all
-  #@creator = MeetupCreator.find_by
-
   erb :index
 end
 
-post '/create' do
+get '/meetups' do
+  authenticate!
+  @meetups = Meetup.all.order(:name)
+  #@creator = MeetupCreator.find_by
 
-redirect '/'
+  erb :'meetups/index'
 end
 
-get '/create' do
 
+get '/create' do
+authenticate!
   erb :create
 end
 
-get '/meetup/:id' do
-  @meetup = Meetup.find(params[:id])
 
-erb :'/meetup/show'
+post '/create' do
+
+new_meetup = Meetup.create(name: params[:name], description: params[:description],
+location: params[:location], meetup_creator_id: session[:user_id].to_i)
+
+flash[:notice] = "You have created a meetup!"
+
+redirect '/meetups'
+
 end
+
+
+
+
+get '/meetups/:id' do
+  authenticate!
+  @meetup = Meetup.find(params[:id])
+  @is_member = MeetupMember.find_by(user_id: current_user.id, meetup_id: params[:id])
+
+erb :'/meetups/show'
+end
+
+post '/meetups/:meetup_id/leave' do
+
+  user = MeetupMember.find_by(user_id: current_user.id, meetup_id: params[:meetup_id])
+#binding.pry
+  user.destroy
+  flash[:notice] = "You have left the Group!"
+
+  redirect '/meetups'
+end
+
+post '/meetups/:id' do
+
+meetup_member = MeetupMember.create(user_id: current_user.id, meetup_id: params[:id])
+flash[:notice] = "You have joined this meetup!"
+
+redirect '/meetups'
+end
+
+
+
+
+
+
 
 get '/auth/github/callback' do
   auth = env['omniauth.auth']
@@ -61,6 +104,7 @@ get '/auth/github/callback' do
 
   redirect '/'
 end
+
 
 get '/sign_out' do
   session[:user_id] = nil

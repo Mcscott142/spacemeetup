@@ -1,0 +1,25 @@
+<h1><%= @meetup.name %></h1>
+
+<p>Description <br><%= @meetup.description %></p>
+<p>Created By: <%= @meetup.creator.username %></p>
+
+<h3>Attending</h3>
+<ul>
+  <% @meetup.users.each do |user| %>
+    <li><%=user.username%> <img src="<%=user.avatar_url%>" width="15" height="15"> </li>
+    <% end %>
+</ul>
+<br>
+
+
+
+<% if @is_member.nil? %>
+  <form action="/meetups/<%= @meetup.id %>" method="post">
+  <input type="Submit" class="btn btn-primary" value="Join meetup">
+</form>
+<% else %>
+<form action="/meetups/<%= @meetup.id %>/leave" method="post">
+  <input type="Submit" class="btn btn-primary" value="Leave Meetup">
+</form>
+
+<% end %>

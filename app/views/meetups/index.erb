@@ -1,0 +1,17 @@
+<h1><%= @title %></h1>
+<div class="meet_up_table">
+<table>
+  <thead>
+    <tr>
+      <th>Meetup Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @meetups.each do |meet| %>
+      <tr>
+        <td><a href="<%= "/meetups/#{meet.id}" %>"><%= "#{meet.name}"%></a></td>
+      </tr>
+  <% end %>
+  </tbody>
+  </table>
+  </div>

@@ -1,17 +1,6 @@
 <h1><%= @title %></h1>
-<div class="meet_up_table">
-<table>
-  <thead>
-    <tr>
-      <th>Meetup Name</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @meetups.each do |meet| %>
-      <tr>
-        <td><a href="<%= "/meetup/#{meet.id}" %>"><%= "#{meet.name}"%></a></td>
-      </tr>
-  <% end %>
-  </tbody>
-  </table>
-  </div>
+
+<h1> Welcome to meetup.com</h1>
+<br>
+<h2>Find meetups <a href="/meetups">here or select the link on the nav bar</a></h2>
+
