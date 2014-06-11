@@ -12,7 +12,7 @@
 <br>
 
 
-
+<div>
 <% if @is_member.nil? %>
   <form action="/meetups/<%= @meetup.id %>" method="post">
   <input type="Submit" class="btn btn-primary" value="Join meetup">
@@ -21,5 +21,18 @@
 <form action="/meetups/<%= @meetup.id %>/leave" method="post">
   <input type="Submit" class="btn btn-primary" value="Leave Meetup">
 </form>
-
 <% end %>
+</div>
+
+<div class="comments">
+<h3>Leave a Comment</h3>
+
+<form id="form" action="/meetups/<%= @meetup.id %>/comment" method="post">
+  <label for="title" >Title: </label>
+  <input type="text" name="title" id="title" value=""><br>
+  <label for="body" >Comment: </label>
+  <input type="text" name="body" id="body" value=""><br>
+  <input type="submit" value="submit">
+</form>
+
+<h4><%= @comments %></h4>

@@ -71,6 +71,13 @@ get '/meetups/:id' do
 erb :'/meetups/show'
 end
 
+post '/meetups/:meetup_id/comment' do
+  @comments = Comment.create(title: params[:title], body: params[:body],
+    meetup_id: params[:meetup_id], user_id: current_user.id)
+
+  redirect '/meetups/:meetup_id'
+end
+
 post '/meetups/:meetup_id/leave' do
 
   user = MeetupMember.find_by(user_id: current_user.id, meetup_id: params[:meetup_id])
