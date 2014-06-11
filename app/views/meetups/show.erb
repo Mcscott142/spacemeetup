@@ -35,4 +35,10 @@
   <input type="submit" value="submit">
 </form>
 
-<h4><%= @comments %></h4>
+<h4>Leave a comment!</h4><br>
+<% @comments.each do |comment| %>
+<p><%= "#{comment.title} #{comment.body} #{comment.user} #{comment.time}" %></p>
+<% end %>
+
+
+
